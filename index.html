@@ -124,6 +124,212 @@
             color: #020617;
             font-weight: 600;
         }
+
+        /* ========== 产品图片展示区 ========== */
+        .product-gallery {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            border: 1px solid #1f2933;
+            border-radius: 24px;
+            padding: 40px;
+            overflow: hidden;
+        }
+
+        .product-gallery::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at center, rgba(56, 189, 248, 0.05) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .gallery-main {
+            position: relative;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .gallery-main img {
+            max-width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-main img:hover {
+            transform: scale(1.02);
+        }
+
+        .gallery-thumbnails {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .gallery-thumbnails img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            opacity: 0.6;
+        }
+
+        .gallery-thumbnails img:hover,
+        .gallery-thumbnails img.active {
+            border-color: #38bdf8;
+            opacity: 1;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(56, 189, 248, 0.3);
+        }
+
+        /* ========== 内部结构展示 ========== */
+        .hardware-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hardware-showcase {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .hardware-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .hardware-image img {
+            width: 100%;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .hardware-image:hover img {
+            transform: scale(1.05);
+        }
+
+        .hardware-image::after {
+            content: '内部结构';
+            position: absolute;
+            bottom: 16px;
+            left: 16px;
+            background: rgba(56, 189, 248, 0.9);
+            color: #020617;
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .hardware-details {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            border: 1px solid #1f2933;
+            border-radius: 20px;
+            padding: 32px;
+        }
+
+        .hardware-details h3 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #38bdf8;
+            margin-bottom: 20px;
+        }
+
+        .hardware-feature {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 20px;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 12px;
+            border-left: 3px solid #38bdf8;
+        }
+
+        .hardware-feature-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 20px;
+        }
+
+        .hardware-feature-text h4 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            color: #e5e7eb;
+        }
+
+        .hardware-feature-text p {
+            margin: 0;
+            font-size: 14px;
+            color: #9ca3af;
+        }
+
+        /* ========== 产品视图网格 ========== */
+        .product-views {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .product-view-card {
+            position: relative;
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            border: 1px solid #1f2933;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .product-view-card:hover {
+            border-color: #38bdf8;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.15);
+        }
+
+        .product-view-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .product-view-card .view-label {
+            padding: 16px 20px;
+            font-size: 15px;
+            font-weight: 500;
+            color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .product-view-card .view-label::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #38bdf8;
+            border-radius: 50%;
+        }
     </style>
 </head>
 
@@ -144,6 +350,87 @@
     </header>
 
     <div class="container">
+
+        <!-- 产品图片展示 -->
+        <section>
+            <h2>产品外观</h2>
+            <div class="product-gallery">
+                <div class="gallery-main">
+                    <img id="main-image" src="image/product-1.png" alt="MBD-R650L 产品图片" />
+                </div>
+                <div class="gallery-thumbnails">
+                    <img src="image/product-1.png" alt="产品视图1" class="active" onclick="changeImage(this)" />
+                    <img src="image/product-2.png" alt="产品视图2" onclick="changeImage(this)" />
+                    <img src="image/product-3.png" alt="产品视图3" onclick="changeImage(this)" />
+                    <img src="image/product-4.png" alt="产品视图4" onclick="changeImage(this)" />
+                    <img src="image/product-5.png" alt="产品视图5" onclick="changeImage(this)" />
+                </div>
+            </div>
+        </section>
+
+        <!-- 多角度展示 -->
+        <section>
+            <h2>多角度展示</h2>
+            <div class="product-views">
+                <div class="product-view-card">
+                    <img src="image/product-1.png" alt="正面视图" />
+                    <div class="view-label">正面视图 - 指示灯与品牌标识</div>
+                </div>
+                <div class="product-view-card">
+                    <img src="image/product-2.png" alt="侧面视图" />
+                    <div class="view-label">侧面视图 - 紧凑金属外壳</div>
+                </div>
+                <div class="product-view-card">
+                    <img src="image/product-3.png" alt="接口视图" />
+                    <div class="view-label">接口视图 - 丰富工业接口</div>
+                </div>
+                <div class="product-view-card">
+                    <img src="image/product-4.png" alt="底部视图" />
+                    <div class="view-label">底部视图 - 散热与安装孔</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 内部硬件展示 -->
+        <section>
+            <h2>硬件架构</h2>
+            <div class="hardware-showcase">
+                <div class="hardware-image">
+                    <img src="image/inner.png" alt="MBD-R650L 内部结构" />
+                </div>
+                <div class="hardware-details">
+                    <h3>工业级硬件设计</h3>
+                    <div class="hardware-feature">
+                        <div class="hardware-feature-icon">🔧</div>
+                        <div class="hardware-feature-text">
+                            <h4>高性能处理器</h4>
+                            <p>采用工业级 ARM 处理器，强劲性能保障数据处理与多任务并发</p>
+                        </div>
+                    </div>
+                    <div class="hardware-feature">
+                        <div class="hardware-feature-icon">📡</div>
+                        <div class="hardware-feature-text">
+                            <h4>5G 通信模组</h4>
+                            <p>集成高通 5G 基带，支持 SA/NSA 双模，下行速率可达 2.5Gbps</p>
+                        </div>
+                    </div>
+                    <div class="hardware-feature">
+                        <div class="hardware-feature-icon">📶</div>
+                        <div class="hardware-feature-text">
+                            <h4>WiFi 6 射频模块</h4>
+                            <p>2.4GHz + 5GHz 双频并发，OFDMA 技术实现高密度接入</p>
+                        </div>
+                    </div>
+                    <div class="hardware-feature">
+                        <div class="hardware-feature-icon">❄️</div>
+                        <div class="hardware-feature-text">
+                            <h4>被动式散热设计</h4>
+                            <p>全金属外壳散热，无风扇静音运行，适应严苛工业环境</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <section>
             <h2>核心能力</h2>
@@ -297,6 +584,31 @@
         </div>
     </footer>
 
+    <script>
+        function changeImage(thumbnail) {
+            // 更新主图
+            const mainImage = document.getElementById('main-image');
+            mainImage.src = thumbnail.src;
+
+            // 更新缩略图激活状态
+            document.querySelectorAll('.gallery-thumbnails img').forEach(img => {
+                img.classList.remove('active');
+            });
+            thumbnail.classList.add('active');
+        }
+
+        // 自动轮播
+        let currentIndex = 0;
+        const thumbnails = document.querySelectorAll('.gallery-thumbnails img');
+
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % thumbnails.length;
+            changeImage(thumbnails[currentIndex]);
+        }, 5000);
+    </script>
+
 </body>
 
 </html>
+</CodeContent>
+<parameter name="EmptyFile">false
