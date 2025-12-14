@@ -6,6 +6,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MBD-R650L | 工业级 5G + WiFi 6 + GPS 路由器</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" sizes="32x32" href="favicon.jpg" />
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.jpg" />
+    <!-- Android/PWA Icon -->
+    <link rel="icon" type="image/jpeg" sizes="192x192" href="icon-192.jpg" />
     <style>
         body {
             margin: 0;
@@ -35,6 +41,26 @@
         header h1 {
             font-size: 40px;
             margin: 0 0 16px 0;
+        }
+
+        .header-brand {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(56, 189, 248, 0.3);
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            object-fit: cover;
+        }
+
+        .header-brand h1 {
+            margin: 0;
         }
 
         header p {
@@ -337,10 +363,15 @@
 
     <header>
         <div class="container">
-            <span class="badge">工业级</span>
-            <span class="badge">5G</span>
-            <span class="badge">WiFi 6</span>
-            <span class="badge">GPS</span>
+            <div class="header-brand">
+                <img src="icon80.jpg" alt="MBD Logo" class="header-logo" srcset="icon80.jpg 1x, icon128.jpg 1.5x" />
+                <div>
+                    <span class="badge">工业级</span>
+                    <span class="badge">5G</span>
+                    <span class="badge">WiFi 6</span>
+                    <span class="badge">GPS</span>
+                </div>
+            </div>
             <h1>MBD-R650L 工业级 5G + WiFi 6 + GPS 路由器</h1>
             <p>
                 MBD-R650L 是一款面向工业现场、车载系统与物联网场景设计的高可靠网络设备，
@@ -497,9 +528,9 @@
                     </ul>
                 </div>
                 <div class="card">
-                    <h3>OpenWrt</h3>
+                    <h3>OpenWrt&ChaWrt</h3>
                     <ul>
-                        <li>完整 OpenWrt 系统</li>
+                        <li>完整 OpenWrt&ChaWrt 系统</li>
                         <li>支持客户二次开发</li>
                     </ul>
                 </div>
