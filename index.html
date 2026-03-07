@@ -470,36 +470,13 @@
         <div class="gallery-main">
           <img id="main-image" src="image/MBD-R650L/product-1.png" alt="Product image" />
         </div>
-        <div class="thumbnails" id="gallery-thumbnails">
-          <img src="image/MBD-R650L/product-1.png" alt="thumb 1" class="active" />
-          <img src="image/MBD-R650L/product-2.png" alt="thumb 2" />
-          <img src="image/MBD-R650L/product-3.png" alt="thumb 3" />
-          <img src="image/MBD-R650L/product-4.png" alt="thumb 4" />
-          <img src="image/MBD-R650L/product-5.png" alt="thumb 5" />
-        </div>
+        <div class="thumbnails" id="gallery-thumbnails"></div>
       </div>
     </section>
 
     <section>
       <h2 class="section-title" data-i18n="sec_views">多角度展示</h2>
-      <div class="cards-4" id="view-cards">
-        <article class="card">
-          <img src="image/MBD-R650L/product-1.png" alt="view 1" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px;" />
-          <h3 data-view-label="0"></h3>
-        </article>
-        <article class="card">
-          <img src="image/MBD-R650L/product-2.png" alt="view 2" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px;" />
-          <h3 data-view-label="1"></h3>
-        </article>
-        <article class="card">
-          <img src="image/MBD-R650L/product-3.png" alt="view 3" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px;" />
-          <h3 data-view-label="2"></h3>
-        </article>
-        <article class="card">
-          <img src="image/MBD-R650L/product-4.png" alt="view 4" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px;" />
-          <h3 data-view-label="3"></h3>
-        </article>
-      </div>
+      <div class="cards-4" id="view-cards"></div>
     </section>
 
     <section>
@@ -769,6 +746,18 @@
         network: '5G',
         networkClass: '5g',
         imagePath: 'image/MBD-R650L',
+        galleryImages: [
+          'product-1.jpg',
+          'product-1.png',
+          'product-2.png',
+          'product-3.jpg',
+          'product-3.png',
+          'product-4.jpg',
+          'product-4.png',
+          'product-5.jpg',
+          'product-5.png',
+          'product-6.jpg'
+        ],
         title: {
           zh: 'MBD-R650L 工业级 5G + WiFi 6 + GPS 路由器',
           en: 'MBD-R650L Industrial 5G + WiFi 6 + GPS Router'
@@ -801,6 +790,27 @@
         network: '4G',
         networkClass: '4g',
         imagePath: 'image/MBD-R606L',
+        galleryImages: [
+          'product-1.jpg',
+          'product-1.png',
+          'product-2.jpg',
+          'product-3.jpg',
+          'product-3.png',
+          'product-4.jpg',
+          'product-4.png',
+          'product-5.jpg',
+          'product-5.png',
+          'product-6.jpg',
+          'product-7.jpg',
+          'product-8.jpg',
+          'product-9.jpg',
+          'product-10.jpg',
+          'product-11.jpg',
+          'product-12.jpg',
+          'product-13.jpg',
+          'product-14.jpg',
+          'product-15.jpg'
+        ],
         title: {
           zh: 'MBD-R606L 工业级 4G + WiFi 6 + GPS 路由器',
           en: 'MBD-R606L Industrial 4G + WiFi 6 + GPS Router'
@@ -854,7 +864,7 @@
       });
       document.querySelectorAll('[data-view-label]').forEach((el) => {
         const index = Number(el.dataset.viewLabel);
-        el.textContent = viewLabels[currentLang][index] || '';
+        el.textContent = getViewLabel(index);
       });
       document.getElementById('footer-text').textContent = text('footer');
       document.getElementById('lang-zh').classList.toggle('active', currentLang === 'zh');
@@ -864,9 +874,27 @@
         : 'MBD Industrial Router | 5G/4G + WiFi 6 + GPS';
     }
 
-    function productImageExt(basePath, idx) {
-      if (basePath.includes('R606L') && idx === 2) return 'jpg';
-      return 'png';
+    function getViewLabel(index) {
+      const labels = viewLabels[currentLang] || [];
+      if (labels[index]) return labels[index];
+      return currentLang === 'zh' ? `产品视图 ${index + 1}` : `Product View ${index + 1}`;
+    }
+
+    function buildGallery(basePath, images) {
+      const thumbsWrap = document.getElementById('gallery-thumbnails');
+      thumbsWrap.innerHTML = images.map((file, index) => {
+        const src = `${basePath}/${file}`;
+        const activeClass = index === 0 ? 'active' : '';
+        return `<img src="${src}" alt="thumb ${index + 1}" class="${activeClass}" data-index="${index}" />`;
+      }).join('');
+    }
+
+    function buildViews(basePath, images) {
+      const cardsWrap = document.getElementById('view-cards');
+      cardsWrap.innerHTML = images.map((file, index) => {
+        const src = `${basePath}/${file}`;
+        return `<article class="card"><img src="${src}" alt="view ${index + 1}" style="width:100%;height:180px;object-fit:cover;border-radius:12px;margin-bottom:10px;" /><h3 data-view-label="${index}">${getViewLabel(index)}</h3></article>`;
+      }).join('');
     }
 
     function renderProduct() {
@@ -887,21 +915,12 @@
       document.getElementById('spec-cellular').innerHTML = p.specCellular[currentLang];
 
       const basePath = p.imagePath;
+      const images = p.galleryImages;
       const main = document.getElementById('main-image');
-      main.src = `${basePath}/product-1.${productImageExt(basePath, 1)}`;
+      main.src = `${basePath}/${images[0]}`;
 
-      const thumbs = document.querySelectorAll('#gallery-thumbnails img');
-      thumbs.forEach((img, i) => {
-        const n = i + 1;
-        img.src = `${basePath}/product-${n}.${productImageExt(basePath, n)}`;
-        img.classList.toggle('active', i === 0);
-      });
-
-      const viewImgs = document.querySelectorAll('#view-cards img');
-      viewImgs.forEach((img, i) => {
-        const n = i + 1;
-        img.src = `${basePath}/product-${n}.${productImageExt(basePath, n)}`;
-      });
+      buildGallery(basePath, images);
+      buildViews(basePath, images);
 
       document.getElementById('inner-image').src = `${basePath}/inner.png`;
       currentIndex = 0;
@@ -943,12 +962,12 @@
         });
       });
 
-      document.querySelectorAll('#gallery-thumbnails img').forEach((thumb, idx) => {
-        thumb.addEventListener('click', () => {
-          currentIndex = idx;
-          setMainImage(thumb);
-          restartAutoplay();
-        });
+      document.getElementById('gallery-thumbnails').addEventListener('click', (event) => {
+        const thumb = event.target.closest('img[data-index]');
+        if (!thumb) return;
+        currentIndex = Number(thumb.dataset.index);
+        setMainImage(thumb);
+        restartAutoplay();
       });
     }
 
